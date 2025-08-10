@@ -1,0 +1,47 @@
+# Node
+node_modules/
+**/node_modules/
+**/.pnp
+.pnp.*
+
+# Builds
+**/dist/
+**/build/
+**/.turbo/
+
+# Env
+.env
+**/.env.local
+**/.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Tests
+coverage/
+.jest-cache/
+.vitest/
+
+# Misc
+*.log
+*.tmp
+*.swp
+
+# Project instruction/spec files to exclude from VCS
+farm_saas_mvp_spec_full.pdf
+
+# Postman instruction files (if present)
+**/*-post-c-pm-*
+**/*-pre-c-pm-*
+**/*-post-f-pm-*
+**/*-pre-f-pm-*
+**/*-post-r-pm-*
+**/*-pre-r-pm-*

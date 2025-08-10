@@ -1,0 +1,17 @@
+{
+  "name": "farmmanagement",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm -ws run build",
+    "dev:api": "npm run dev -w apps/api",
+    "dev:web": "npm run dev -w apps/web",
+    "dev": "concurrently -n api,web -c green,cyan \"npm:dev:api\" \"npm:dev:web\"",
+    "test": "npm -ws run test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
