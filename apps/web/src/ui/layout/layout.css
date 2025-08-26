@@ -1,0 +1,127 @@
+/* Basic responsive dashboard shell */
+html,body{
+	margin: 0;
+	padding: 0;
+}
+.app-shell {
+	display: grid;
+	grid-template-areas: "header header" "main main"; /* Sidebar overlays, no fixed column */
+	grid-template-columns: 1fr;
+	grid-template-rows: 56px 1fr;
+	height: 100vh;
+	background: var(--bg, #111);
+	color: var(--fg, #f5f5f5);
+}
+.app-header {
+	grid-area: header;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0 1rem;
+	background: #1f2937;
+	border-bottom: 1px solid #2d3748;
+}
+.logo {
+	font-size: 1.1rem;
+	margin: 0;
+}
+.menu-btn {
+	background: none;
+	border: 1px solid #374151;
+	color: inherit;
+	padding: 0.4rem 0.6rem;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.menu-btn:hover {
+	background: #374151;
+}
+.header-actions {
+	margin-left: auto;
+}
+.action-btn {
+	background: #2563eb;
+	border: none;
+	color: #fff;
+	padding: 0.45rem 0.8rem;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.85rem;
+}
+.action-btn:hover {
+	background: #1d4ed8;
+}
+.app-sidebar {
+	position: absolute;
+	top: 56px;
+	left: 0;
+	bottom: 0;
+	width: 240px;
+	z-index: 50; /* overlay above main */
+	background: #111827;
+	border-right: 1px solid #1f2937;
+	overflow: hidden;
+	padding: 0.75rem 0.5rem;
+}
+.app-sidebar ul {
+	list-style: none;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 100%;
+}
+.app-sidebar ul li{
+	flex: 0 0 auto;
+	width: 100%;
+}
+.nav-link {
+	display: block;
+	width: 100%;
+	text-align: left;
+	background: none;
+	border: 1px solid transparent;
+	color: #d1d5db;
+	padding: 0.5rem 0.75rem;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.85rem;
+	text-decoration: none;
+
+}
+.nav-link:hover {
+	background: #1f2937;
+	color: #fff;
+}
+.nav-link.active {
+	background: #2563eb;
+	color: #fff;
+	width: 100%;
+
+}
+.app-main {
+	grid-area: main;
+	padding: 1rem 1.25rem 2rem;
+	overflow: auto;
+	background: #0f172a;
+}
+/* .sidebar-open .app-main { */
+	/* Optional padding shift when sidebar open on wide screens */
+	/* padding-left: calc(240px + 1.25rem);
+} */
+.module-panel {
+	background: #1e293b;
+	padding: 1rem;
+	border: 1px solid #334155;
+	border-radius: 6px;
+}
+/* Sidebar visibility toggled in media query via transform; no display override needed */
+@media (max-width: 900px) {
+	.app-sidebar { width: 220px; }
+}
+
+/* Optional: collapse sidebar on large screens too by shifting grid if closed */
+.app-shell .app-sidebar { transform: translateX(-100%); }
+.app-shell.sidebar-open .app-sidebar { transform: translateX(0); }
