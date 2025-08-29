@@ -1,122 +1,139 @@
-/* Theme tokens using system preference with optional manual override */
+/* Theme tokens using your palette, system-aware with manual override */
 :root {
 	color-scheme: light dark;
 
-	/* Default to LIGHT tokens; system dark will override via media query below */
-	--fg: #0f172a;
+	/* Base palette variables */
+	--color-dark-bg: #E9E7E1;
+	--color-light-bg: #F2F1ED;
+	--color-primary-text: #223459;
+	--color-secondary-text: #6A5AAA;
+	--color-mod-bg-dark: #F2F1ED;
+	--color-mod-bg-light: #E9E7E1;
+	--color-positive: #37CD97;
+	--color-negative: #F84444;
 
-	--bg: #f3f4f6;        /* page background (light but not white) */
-	--main-bg: #f3f4f6;    /* content area background */
-	--header-bg: #ffffff;
-	--header-border: #e5e7eb;
-	--sidebar-bg: #ffffff;
-	--sidebar-border: #e5e7eb;
-	--module-panel-bg: #e5e7eb;  /* slightly darker than page */
-	--module-panel-border: #d1d5db;
+	/* Default to LIGHT mapping (system dark will override) */
+	--fg: var(--color-primary-text);
+	--fg-secondary: var(--color-secondary-text);
 
-	--menu-btn-border: #d1d5db;
-	--menu-btn-hover-bg: #f3f4f6;
-	--action-btn-bg: #2563eb;
-	--action-btn-hover-bg: #1d4ed8;
-	--action-btn-color: #ffffff;
+	--bg: var(--color-light-bg);
+	--main-bg: var(--color-light-bg);
+	--header-bg: var(--color-mod-bg-light);
+	--header-border: var(--color-primary-text);
+	--sidebar-bg: var(--color-mod-bg-light);
+	--sidebar-border: var(--color-primary-text);
+	--module-panel-bg: var(--color-mod-bg-light); /* darker than page */
+	--module-panel-border: var(--color-primary-text);
 
-	--nav-link-color: #374151;
-	--nav-link-hover-bg: #f3f4f6;
-	--nav-link-hover-color: #111827;
-	--nav-link-active-bg: #2563eb;
-	--nav-link-active-color: #ffffff;
+	--menu-btn-border: var(--color-primary-text);
+	--menu-btn-hover-bg: var(--color-light-bg);
+	--action-btn-bg: var(--color-secondary-text);
+	--action-btn-hover-bg: var(--color-primary-text);
+	--action-btn-color: var(--color-light-bg);
 
-	--sub-menu-border-color: #e5e7eb;
-	--sub-menu-active-bg: #e0e7ff;
-	--sub-menu-active-color: #1e3a8a;
+	--nav-link-color: var(--color-primary-text);
+	--nav-link-hover-bg: var(--color-mod-bg-light);
+	--nav-link-hover-color: var(--color-primary-text);
+	--nav-link-active-bg: var(--color-secondary-text);
+	--nav-link-active-color: var(--color-light-bg);
 
-	--border-color: #e5e7eb;
+	--sub-menu-border-color: var(--color-primary-text);
+	--sub-menu-active-bg: var(--color-secondary-text);
+	--sub-menu-active-color: var(--color-light-bg);
+
+	--border-color: var(--color-primary-text);
+
+	--positive-color: var(--color-positive);
+	--negative-color: var(--color-negative);
 }
 
-/* System DARK preference */
+/* System DARK preference: swap page/module tones */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--fg: #f5f5f5;
+		--fg: var(--color-primary-text);
+		--fg-secondary: var(--color-secondary-text);
 
-		--bg: #0b1220;
-		--main-bg: #0f172a;
-		--header-bg: #1f2937;
-		--header-border: #2d3748;
-		--sidebar-bg: #111827;
-		--sidebar-border: #1f2937;
-		--module-panel-bg: #1e293b;
-		--module-panel-border: #334155;
+		--bg: var(--color-dark-bg);
+		--main-bg: var(--color-dark-bg);
+		--header-bg: var(--color-mod-bg-dark);
+		--header-border: var(--color-primary-text);
+		--sidebar-bg: var(--color-mod-bg-dark);
+		--sidebar-border: var(--color-primary-text);
+		--module-panel-bg: var(--color-mod-bg-dark); /* lighter than page to separate */
+		--module-panel-border: var(--color-primary-text);
 
-		--menu-btn-border: #374151;
-		--menu-btn-hover-bg: #374151;
-		--action-btn-bg: #2563eb;
-		--action-btn-hover-bg: #1d4ed8;
-		--action-btn-color: #ffffff;
+		--menu-btn-border: var(--color-primary-text);
+		--menu-btn-hover-bg: var(--color-dark-bg);
+		--action-btn-bg: var(--color-secondary-text);
+		--action-btn-hover-bg: var(--color-primary-text);
+		--action-btn-color: var(--color-light-bg);
 
-		--nav-link-color: #d1d5db;
-		--nav-link-hover-bg: #1f2937;
-		--nav-link-hover-color: #ffffff;
-		--nav-link-active-bg: #2563eb;
-		--nav-link-active-color: #ffffff;
+		--nav-link-color: var(--color-primary-text);
+		--nav-link-hover-bg: var(--color-mod-bg-dark);
+		--nav-link-hover-color: var(--color-primary-text);
+		--nav-link-active-bg: var(--color-secondary-text);
+		--nav-link-active-color: var(--color-light-bg);
 
-		--sub-menu-border-color: #334155;
-		--sub-menu-active-bg: #1e3a8a;
-		--sub-menu-active-color: #e0e7ff;
+		--sub-menu-border-color: var(--color-primary-text);
+		--sub-menu-active-bg: var(--color-secondary-text);
+		--sub-menu-active-color: var(--color-light-bg);
 
-		--border-color: #334155;
+		--border-color: var(--color-primary-text);
 	}
 }
 
 /* Manual override: force LIGHT */
 :root[data-theme="light"] {
-	--fg: #0f172a;
-	--bg: #f3f4f6;
-	--main-bg: #f3f4f6;
-	--header-bg: #ffffff;
-	--header-border: #e5e7eb;
-	--sidebar-bg: #ffffff;
-	--sidebar-border: #e5e7eb;
-	--module-panel-bg: #e5e7eb;
-	--module-panel-border: #d1d5db;
-	--menu-btn-border: #d1d5db;
-	--menu-btn-hover-bg: #f3f4f6;
-	--action-btn-bg: #2563eb;
-	--action-btn-hover-bg: #1d4ed8;
-	--action-btn-color: #ffffff;
-	--nav-link-color: #374151;
-	--nav-link-hover-bg: #f3f4f6;
-	--nav-link-hover-color: #111827;
-	--nav-link-active-bg: #2563eb;
-	--nav-link-active-color: #ffffff;
-	--sub-menu-border-color: #e5e7eb;
-	--sub-menu-active-bg: #e0e7ff;
-	--sub-menu-active-color: #1e3a8a;
-	--border-color: #e5e7eb;
+	--fg: var(--color-primary-text);
+	--fg-secondary: var(--color-secondary-text);
+	--bg: var(--color-light-bg);
+	--main-bg: var(--color-light-bg);
+	--header-bg: var(--color-mod-bg-light);
+	--header-border: var(--color-primary-text);
+	--sidebar-bg: var(--color-mod-bg-light);
+	--sidebar-border: var(--color-primary-text);
+	--module-panel-bg: var(--color-mod-bg-light);
+	--module-panel-border: var(--color-primary-text);
+	--menu-btn-border: var(--color-primary-text);
+	--menu-btn-hover-bg: var(--color-light-bg);
+	--action-btn-bg: var(--color-secondary-text);
+	--action-btn-hover-bg: var(--color-primary-text);
+	--action-btn-color: var(--color-light-bg);
+	--nav-link-color: var(--color-primary-text);
+	--nav-link-hover-bg: var(--color-mod-bg-light);
+	--nav-link-hover-color: var(--color-primary-text);
+	--nav-link-active-bg: var(--color-secondary-text);
+	--nav-link-active-color: var(--color-light-bg);
+	--sub-menu-border-color: var(--color-primary-text);
+	--sub-menu-active-bg: var(--color-secondary-text);
+	--sub-menu-active-color: var(--color-light-bg);
+	--border-color: var(--color-primary-text);
 }
 
 /* Manual override: force DARK */
 :root[data-theme="dark"] {
-	--fg: #f5f5f5;
-	--bg: #0b1220;
-	--main-bg: #0f172a;
-	--header-bg: #1f2937;
-	--header-border: #2d3748;
-	--sidebar-bg: #111827;
-	--sidebar-border: #1f2937;
-	--module-panel-bg: #1e293b;
-	--module-panel-border: #334155;
-	--menu-btn-border: #374151;
-	--menu-btn-hover-bg: #374151;
-	--action-btn-bg: #2563eb;
-	--action-btn-hover-bg: #1d4ed8;
-	--action-btn-color: #ffffff;
-	--nav-link-color: #d1d5db;
-	--nav-link-hover-bg: #1f2937;
-	--nav-link-hover-color: #ffffff;
-	--nav-link-active-bg: #2563eb;
-	--nav-link-active-color: #ffffff;
-	--sub-menu-border-color: #334155;
-	--sub-menu-active-bg: #1e3a8a;
-	--sub-menu-active-color: #e0e7ff;
-	--border-color: #334155;
+	--fg: var(--color-primary-text);
+	--fg-secondary: var(--color-secondary-text);
+	--bg: var(--color-dark-bg);
+	--main-bg: var(--color-dark-bg);
+	--header-bg: var(--color-mod-bg-dark);
+	--header-border: var(--color-primary-text);
+	--sidebar-bg: var(--color-mod-bg-dark);
+	--sidebar-border: var(--color-primary-text);
+	--module-panel-bg: var(--color-mod-bg-dark);
+	--module-panel-border: var(--color-primary-text);
+	--menu-btn-border: var(--color-primary-text);
+	--menu-btn-hover-bg: var(--color-dark-bg);
+	--action-btn-bg: var(--color-secondary-text);
+	--action-btn-hover-bg: var(--color-primary-text);
+	--action-btn-color: var(--color-light-bg);
+	--nav-link-color: var(--color-primary-text);
+	--nav-link-hover-bg: var(--color-mod-bg-dark);
+	--nav-link-hover-color: var(--color-primary-text);
+	--nav-link-active-bg: var(--color-secondary-text);
+	--nav-link-active-color: var(--color-light-bg);
+	--sub-menu-border-color: var(--color-primary-text);
+	--sub-menu-active-bg: var(--color-secondary-text);
+	--sub-menu-active-color: var(--color-light-bg);
+	--border-color: var(--color-primary-text);
 }
