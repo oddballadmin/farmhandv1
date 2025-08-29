@@ -125,3 +125,47 @@ html,body{
 /* Optional: collapse sidebar on large screens too by shifting grid if closed */
 .app-shell .app-sidebar { transform: translateX(-100%); }
 .app-shell.sidebar-open .app-sidebar { transform: translateX(0); }
+
+/* Sub-menu styles */
+.sub-menu {
+	margin-bottom: 1.5rem;
+	padding: 0.75rem 0;
+	border-bottom: 1px solid #334155;
+}
+
+.sub-menu-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.sub-menu-item {
+	flex: 0 0 auto;
+}
+
+.sub-menu-link {
+	display: block;
+	padding: 0.4rem 0.75rem;
+	background: #1e293b;
+	border: 1px solid #334155;
+	border-radius: 4px;
+	color: #d1d5db;
+	text-decoration: none;
+	font-size: 0.85rem;
+	transition: all 0.2s ease;
+}
+
+.sub-menu-link:hover {
+	background: #2563eb;
+	color: #fff;
+	border-color: #2563eb;
+}
+
+.sub-menu-link.active {
+	background: #2563eb;
+	color: #fff;
+	border-color: #2563eb;
+}

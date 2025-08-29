@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { LivestockModule } from '../modules/Livestock/LivestockModule';
+import { ModuleWrapper } from '../components/ModuleWrapper';
+import { FarmsSubMenu } from '../sub-menus';
 import { useUIStore } from '../state/uiStore';
 import './layout.css';
 
@@ -96,7 +98,16 @@ const ModuleContainer: React.FC<{ moduleName: string }> = ({ moduleName }) => {
     case 'Overview':
       return <div className="module-panel">Welcome - select a module to begin.</div>;
     case 'Farms':
-      return <div className="module-panel">Farms module coming soon.</div>;
+      return (
+        <ModuleWrapper 
+          moduleName="Farms" 
+          hasSubMenu={true} 
+          subMenuComponent={FarmsSubMenu}
+        >
+          <h2 id="farms-heading">Farms</h2>
+          <p>Farms module with sub-menu functionality enabled.</p>
+        </ModuleWrapper>
+      );
     case 'Fields':
       return <div className="module-panel">Fields module coming soon.</div>;
     case 'Tasks':
