@@ -9,8 +9,8 @@ html,body{
 	grid-template-columns: 1fr;
 	grid-template-rows: 56px 1fr;
 	height: 100vh;
-	background: var(--bg, #111);
-	color: var(--fg, #f5f5f5);
+	background: var(--bg);
+	color: var(--fg);
 }
 .app-header {
 	grid-area: header;
@@ -18,8 +18,8 @@ html,body{
 	align-items: center;
 	gap: 1rem;
 	padding: 0 1rem;
-	background: #1f2937;
-	border-bottom: 1px solid #2d3748;
+	background: var(--header-bg);
+	border-bottom: 1px solid var(--header-border);
 }
 .logo {
 	font-size: 1.1rem;
@@ -27,29 +27,29 @@ html,body{
 }
 .menu-btn {
 	background: none;
-	border: 1px solid #374151;
+	border: 1px solid var(--menu-btn-border);
 	color: inherit;
 	padding: 0.4rem 0.6rem;
 	border-radius: 4px;
 	cursor: pointer;
 }
 .menu-btn:hover {
-	background: #374151;
+    background: var(--menu-btn-hover-bg);
 }
 .header-actions {
 	margin-left: auto;
 }
 .action-btn {
-	background: #2563eb;
+	background: var(--action-btn-bg);
 	border: none;
-	color: #fff;
+	color: var(--action-btn-color);
 	padding: 0.45rem 0.8rem;
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 0.85rem;
 }
 .action-btn:hover {
-	background: #1d4ed8;
+	background: var(--action-btn-hover-bg);
 }
 .app-sidebar {
 	position: absolute;
@@ -58,8 +58,8 @@ html,body{
 	bottom: 0;
 	width: 240px;
 	z-index: 50; /* overlay above main */
-	background: #111827;
-	border-right: 1px solid #1f2937;
+	background: var(--sidebar-bg);
+	border-right: 1px solid var(--sidebar-border);
 	overflow: hidden;
 	padding: 0.75rem 0.5rem;
 }
@@ -83,7 +83,7 @@ html,body{
 	text-align: left;
 	background: none;
 	border: 1px solid transparent;
-	color: #d1d5db;
+	color: var(--nav-link-color);
 	padding: 0.5rem 0.75rem;
 	border-radius: 4px;
 	cursor: pointer;
@@ -92,19 +92,19 @@ html,body{
 
 }
 .nav-link:hover {
-	background: #1f2937;
-	color: #fff;
+    background: var(--nav-link-hover-bg);
+    color: var(--nav-link-hover-color);
 }
 .nav-link.active {
-	background: #2563eb;
-	color: #fff;
+	background: var(--nav-link-active-bg);
+	color: var(--nav-link-active-color);
 	width: 100%;
 
 
 /* Sub-menu styles */
 .sub-menu {
 	margin: 0.25rem 0 1rem;
-	border-bottom: 1px solid var(--border-color, #e5e7eb);
+	border-bottom: 1px solid var(--sub-menu-border-color);
 }
 
 .sub-menu__list {
@@ -123,24 +123,24 @@ html,body{
 }
 
 .sub-menu__link.active {
-	background: var(--accent-weak, #eef2ff);
-	color: var(--accent-strong, #3730a3);
+	background: var(--sub-menu-active-bg);
+	color: var(--sub-menu-active-color);
 }
 }
 .app-main {
 	grid-area: main;
 	padding: 1rem 1.25rem 2rem;
 	overflow: auto;
-	background: #0f172a;
+	background: var(--main-bg);
 }
 /* .sidebar-open .app-main { */
 	/* Optional padding shift when sidebar open on wide screens */
 	/* padding-left: calc(240px + 1.25rem);
 } */
 .module-panel {
-	background: #1e293b;
+	background: var(--module-panel-bg);
 	padding: 1rem;
-	border: 1px solid #334155;
+	border: 1px solid var(--module-panel-border);
 	border-radius: 6px;
 }
 /* Sidebar visibility toggled in media query via transform; no display override needed */

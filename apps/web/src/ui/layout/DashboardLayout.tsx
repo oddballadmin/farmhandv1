@@ -44,6 +44,19 @@ export const DashboardLayout: React.FC = () => {
   return (
   <div className={`app-shell ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
       <header className="app-header">
+        {/* Temporary theme toggle for testing. Replace with a proper setting later. */}
+        <button
+          className="menu-btn"
+          onClick={() => {
+            const root = document.documentElement;
+            const isLight = root.getAttribute('data-theme') === 'light';
+            root.setAttribute('data-theme', isLight ? 'dark' : 'light');
+          }}
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          🌓
+        </button>
         <button
           className="menu-btn"
           onClick={toggleSidebar}
