@@ -2,6 +2,7 @@
 html,body{
 	margin: 0;
 	padding: 0;
+	font-family: var(--font-body);
 }
 .app-shell {
 	display: grid;
@@ -18,12 +19,16 @@ html,body{
 	align-items: center;
 	gap: 1rem;
 	padding: 0 1rem;
-	background: var(--header-bg);
+	background: var(--header-surface, var(--header-bg));
 	border-bottom: 1px solid var(--header-border);
+	font-family: var(--font-heading);
 }
 .logo {
 	font-size: 1.1rem;
 	margin: 0;
+	font-family: var(--font-heading);
+	font-weight: 600;
+	letter-spacing: 0.04em;
 }
 .menu-btn {
 	background: none;
@@ -58,7 +63,7 @@ html,body{
 	bottom: 0;
 	width: 240px;
 	z-index: 50; /* overlay above main */
-	background: var(--sidebar-bg);
+	background: var(--sidebar-surface, var(--sidebar-bg));
 	border-right: 1px solid var(--sidebar-border);
 	overflow: hidden;
 	padding: 0.75rem 0.5rem;
@@ -89,6 +94,8 @@ html,body{
 	cursor: pointer;
 	font-size: 0.85rem;
 	text-decoration: none;
+	font-family: var(--font-heading);
+	font-weight: 500;
 
 }
 .nav-link:hover {
@@ -143,6 +150,7 @@ html,body{
 	border: 1px solid var(--module-panel-border);
 	border-radius: 6px;
 	box-shadow: var(--elevation-1);
+	font-family: var(--font-body);
 }
 /* Sidebar visibility toggled in media query via transform; no display override needed */
 @media (max-width: 900px) {
