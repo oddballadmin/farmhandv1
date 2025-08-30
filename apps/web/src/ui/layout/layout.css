@@ -142,6 +142,7 @@ html,body{
 	padding: 1rem;
 	border: 1px solid var(--module-panel-border);
 	border-radius: 6px;
+	box-shadow: var(--elevation-1);
 }
 /* Sidebar visibility toggled in media query via transform; no display override needed */
 @media (max-width: 900px) {
