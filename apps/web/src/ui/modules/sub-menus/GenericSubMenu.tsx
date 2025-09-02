@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 export type SubMenuItem = {
@@ -16,7 +15,7 @@ export interface GenericSubMenuProps {
  * Generic, accessible sub-menu used by individual module sub-menus.
  * Each module can compose this with its own set of items.
  */
-export const GenericSubMenu: React.FC<GenericSubMenuProps> = ({ items, className }) => {
+export const GenericSubMenu = ({ items, className }: GenericSubMenuProps) => {
   return (
     <nav className={`sub-menu ${className ?? ''}`} aria-label="Module sub-navigation">
       <ul className="sub-menu__list">

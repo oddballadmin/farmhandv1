@@ -1,4 +1,3 @@
-import React from 'react';
 import { GenericSubMenu, SubMenuItem } from './GenericSubMenu';
 
 const items: SubMenuItem[] = [
@@ -9,7 +8,7 @@ const items: SubMenuItem[] = [
   { title: 'Feeding', url: '/livestock/feeding', slug: 'feeding' },
 ];
 
-export const LivestockSubMenu: React.FC = () => {
+export const LivestockSubMenu = () => {
   return <GenericSubMenu items={items} />;
 };
 

@@ -1,11 +1,10 @@
-import React from 'react';
 import { LivestockSubMenu } from '../sub-menus/Livestock-sub-menu';
 
 type LivestockModuleProps = {
   hasSubMenu?: boolean;
 };
 
-export const LivestockModule: React.FC<LivestockModuleProps> = ({ hasSubMenu = true }) => {
+export const LivestockModule = ({ hasSubMenu = true }: LivestockModuleProps) => {
   return (
     <section className="module-panel" aria-labelledby="livestock-heading">
       <h2 id="livestock-heading">Livestock</h2>

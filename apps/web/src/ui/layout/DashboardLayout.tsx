@@ -1,10 +1,10 @@
-import React from 'react';
+import { useEffect} from 'react';
 import { NavLink, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { LivestockModule } from '../modules/Livestock/LivestockModule';
 import { useUIStore } from '../state/uiStore';
 import './layout.css';
 
-export const DashboardLayout: React.FC = () => {
+export const DashboardLayout = () => {
   const { sidebarOpen, toggleSidebar, activeModule, setActiveModule } = useUIStore();
   const location = useLocation();
 
@@ -18,7 +18,7 @@ export const DashboardLayout: React.FC = () => {
   ];
 
   // Keep store in sync with current route, to avoid prop drilling elsewhere
-  React.useEffect(() => {
+  useEffect(() => {
     const pathToModuleName = (pathname: string): string => {
       if (pathname === '/' || pathname === '') return 'Overview';
       const matched = moduleDefinitions.find((def) => pathname.startsWith(def.path) && def.path !== '/');
@@ -29,7 +29,7 @@ export const DashboardLayout: React.FC = () => {
   }, [location.pathname, activeModule, setActiveModule]);
 
   // Keyboard shortcut: Ctrl/Cmd + B to toggle sidebar
-  React.useEffect(() => {
+  useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       const isCtrlOrCmd = event.ctrlKey || event.metaKey;
       if (isCtrlOrCmd && (event.key === 'b' || event.key === 'B')) {
@@ -104,7 +104,7 @@ export const DashboardLayout: React.FC = () => {
   );
 };
 
-const ModuleContainer: React.FC<{ moduleName: string }> = ({ moduleName }) => {
+const ModuleContainer = ({ moduleName }: { moduleName: string }) => {
   switch (moduleName) {
     case 'Overview':
       return <div className="module-panel">Welcome - select a module to begin.</div>;

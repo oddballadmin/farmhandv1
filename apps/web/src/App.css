@@ -73,6 +73,9 @@
 	/* Typography */
 	--font-body: 'Noto Serif', ui-serif, Georgia, Cambria, Times, 'Times New Roman', serif;
 	--font-heading: 'Oswald', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, 'Helvetica Neue', sans-serif;
+
+	/* Dividers */
+	--divider-color: var(--border-color);
 }
 
 /* Typography: headings letter-spacing (body spacing unchanged) */
@@ -87,6 +90,23 @@ h3 { letter-spacing: 0.015em; }
 h4 { letter-spacing: 0.01em; }
 h5 { letter-spacing: 0.01em; }
 h6 { letter-spacing: 0.005em; }
+
+/* Type scale (bold, readable; body spacing left alone) */
+h1 {
+	font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.2rem);
+	line-height: 1.2;
+	font-weight: 600;
+}
+h2 {
+	font-size: clamp(1.35rem, 1.05rem + 0.9vw, 1.8rem);
+	line-height: 1.25;
+	font-weight: 600;
+}
+h3 {
+	font-size: clamp(1.15rem, 1rem + 0.5vw, 1.35rem);
+	line-height: 1.3;
+	font-weight: 600;
+}
 
 /* System DARK preference: swap page/module tones */
 @media (prefers-color-scheme: dark) {

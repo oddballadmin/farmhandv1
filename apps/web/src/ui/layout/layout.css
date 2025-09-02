@@ -20,7 +20,7 @@ html,body{
 	gap: 1rem;
 	padding: 0 1rem;
 	background: var(--header-surface, var(--header-bg));
-	border-bottom: 1px solid var(--header-border);
+	border-bottom: 1px solid var(--divider-color);
 	font-family: var(--font-heading);
 }
 .logo {
@@ -64,7 +64,7 @@ html,body{
 	width: 240px;
 	z-index: 50; /* overlay above main */
 	background: var(--sidebar-surface, var(--sidebar-bg));
-	border-right: 1px solid var(--sidebar-border);
+	border-right: 1px solid var(--divider-color);
 	overflow: hidden;
 	padding: 0.75rem 0.5rem;
 }
