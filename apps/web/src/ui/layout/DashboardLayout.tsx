@@ -1,6 +1,7 @@
 import { useEffect} from 'react';
 import { NavLink, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { LivestockModule } from '../modules/Livestock/LivestockModule';
+import { BreedingPage } from '../modules/Livestock/BreedingPage';
 import { useUIStore } from '../state/uiStore';
 import './layout.css';
 
@@ -97,6 +98,7 @@ export const DashboardLayout = () => {
           <Route path="/tasks" element={<ModuleContainer moduleName="Tasks" />} />
           <Route path="/sensors" element={<ModuleContainer moduleName="Sensors" />} />
           <Route path="/livestock" element={<LivestockModule />} />
+          <Route path="/livestock/breeding" element={<BreedingPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

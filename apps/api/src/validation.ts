@@ -25,3 +25,32 @@ export const createTaskSchema = z.object({
 });
 
 export const updateTaskSchema = createTaskSchema.partial();
+
+export const createAnimalSchema = z.object({
+  farmId: z.string().min(1),
+  name: z.string().min(1),
+  type: z.enum(["goat", "cow", "sheep", "pig", "horse", "chicken"]),
+  breed: z.string().optional(),
+  gender: z.enum(["male", "female"]),
+  birthDate: z.string().datetime().optional(),
+  parentMaleId: z.string().optional(),
+  parentFemaleId: z.string().optional(),
+  registrationNumber: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+export const updateAnimalSchema = createAnimalSchema.partial();
+
+export const createBreedingRecordSchema = z.object({
+  farmId: z.string().min(1),
+  maleAnimalId: z.string().min(1),
+  femaleAnimalId: z.string().min(1),
+  breedingDate: z.string().datetime(),
+  expectedDueDate: z.string().datetime().optional(),
+  actualBirthDate: z.string().datetime().optional(),
+  offspring: z.array(z.string()).optional(),
+  status: z.enum(["planned", "confirmed", "successful", "unsuccessful"]).default("planned"),
+  notes: z.string().optional(),
+});
+
+export const updateBreedingRecordSchema = createBreedingRecordSchema.partial();
