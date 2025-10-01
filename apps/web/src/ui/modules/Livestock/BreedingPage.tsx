@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
 
 interface Animal {
   id: string;
@@ -33,6 +34,7 @@ export const BreedingPage = () => {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [breedingRecords, setBreedingRecords] = useState<BreedingRecord[]>([]);
   const [selectedAnimalType, setSelectedAnimalType] = useState<string>('all');
+  const [selectedAnimalId, setSelectedAnimalId] = useState<string | null>(null);
   const [showAddAnimalForm, setShowAddAnimalForm] = useState(false);
   const [showAddBreedingForm, setShowAddBreedingForm] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -69,6 +71,9 @@ export const BreedingPage = () => {
     const animal = animals.find(a => a.id === id);
     return animal ? animal.name : 'Unknown';
   };
+
+  const getSelectedAnimal = () =>
+    selectedAnimalId ? animals.find(a => a.id === selectedAnimalId) ?? null : null;
 
   const handleAddAnimal = async (animalData: Partial<Animal>) => {
     try {
@@ -112,7 +117,7 @@ export const BreedingPage = () => {
     <section className="module-panel" aria-labelledby="breeding-heading">
       <h2 id="breeding-heading">Breeding Management</h2>
       
-      <div style={{ marginBottom: '2rem' }}>
+  <div style={{ marginBottom: '2rem' }}>
         <label htmlFor="animal-type-filter" style={{ marginRight: '0.5rem' }}>
           Filter by Animal Type:
         </label>
@@ -152,12 +157,19 @@ export const BreedingPage = () => {
         <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
           {filteredAnimals.map(animal => (
             <div key={animal.id} style={{ 
-              border: '1px solid #ddd', 
+              border: '1px solid var(--card-border)', 
               padding: '1rem', 
               borderRadius: '0.25rem',
-              backgroundColor: animal.gender === 'male' ? '#e6f3ff' : '#ffe6f3'
-            }}>
-              <h4>{animal.name} ({animal.gender})</h4>
+              background: 'var(--card-bg)',
+              cursor: 'pointer',
+              outline: selectedAnimalId === animal.id ? '2px solid var(--nav-link-active-bg)' : 'none'
+            }} onClick={() => setSelectedAnimalId(animal.id)} role="button" aria-pressed={selectedAnimalId === animal.id}>
+              <h4 style={{
+                color: 'var(--fg)',
+                borderBottom: '1px solid var(--divider-color)',
+                paddingBottom: '0.25rem',
+                marginBottom: '0.5rem'
+              }}>{animal.name} ({animal.gender})</h4>
               <p><strong>Type:</strong> {animal.type}</p>
               {animal.breed && <p><strong>Breed:</strong> {animal.breed}</p>}
               {animal.birthDate && <p><strong>Birth Date:</strong> {new Date(animal.birthDate).toLocaleDateString()}</p>}
@@ -170,16 +182,56 @@ export const BreedingPage = () => {
         </div>
       </div>
 
+      {/* Selected animal breeding records */}
+      {selectedAnimalId && (
+        <div style={{ marginBottom: '2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h3>
+              Breeding Records for {getSelectedAnimal()?.name ?? 'Animal'}
+            </h3>
+            <button onClick={() => setSelectedAnimalId(null)} style={{ padding: '0.25rem 0.5rem' }}>Clear</button>
+          </div>
+          <div style={{ display: 'grid', gap: '1rem' }}>
+            {breedingRecords
+              .filter(r => r.maleAnimalId === selectedAnimalId || r.femaleAnimalId === selectedAnimalId)
+              .map(record => (
+                <div key={record.id} style={{
+                  border: '1px solid var(--card-border)',
+                  padding: '1rem',
+                  borderRadius: '0.25rem',
+                  background: 'var(--card-bg)'
+                }}>
+                  <h4>Breeding {record.id}</h4>
+                  <p><strong>Male:</strong> {getAnimalName(record.maleAnimalId)}</p>
+                  <p><strong>Female:</strong> {getAnimalName(record.femaleAnimalId)}</p>
+                  <p><strong>Breeding Date:</strong> {new Date(record.breedingDate).toLocaleDateString()}</p>
+                  {record.expectedDueDate && (
+                    <p><strong>Expected Due:</strong> {new Date(record.expectedDueDate).toLocaleDateString()}</p>
+                  )}
+                  {record.actualBirthDate && (
+                    <p><strong>Birth Date:</strong> {new Date(record.actualBirthDate).toLocaleDateString()}</p>
+                  )}
+                  <p><strong>Status:</strong> {record.status}</p>
+                  {record.notes && <p><strong>Notes:</strong> {record.notes}</p>}
+                </div>
+            ))}
+            {breedingRecords.filter(r => r.maleAnimalId === selectedAnimalId || r.femaleAnimalId === selectedAnimalId).length === 0 && (
+              <div style={{ color: 'var(--fg)' }}>No breeding records for this animal yet.</div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Breeding Records Section */}
       <div>
         <h3>Breeding Records ({breedingRecords.length})</h3>
         <div style={{ display: 'grid', gap: '1rem' }}>
           {breedingRecords.map(record => (
             <div key={record.id} style={{ 
-              border: '1px solid #ddd', 
+              border: '1px solid var(--card-border)', 
               padding: '1rem', 
               borderRadius: '0.25rem',
-              backgroundColor: '#f9f9f9'
+              background: 'var(--card-bg)'
             }}>
               <h4>Breeding {record.id}</h4>
               <p><strong>Male:</strong> {getAnimalName(record.maleAnimalId)}</p>
@@ -245,7 +297,7 @@ const AddAnimalForm = ({
   const maleAnimals = animals.filter(a => a.gender === 'male');
   const femaleAnimals = animals.filter(a => a.gender === 'female');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const dataToSubmit = { ...formData };
     
@@ -277,7 +329,9 @@ const AddAnimalForm = ({
       zIndex: 1000
     }}>
       <form onSubmit={handleSubmit} style={{ 
-        backgroundColor: 'white', 
+        background: 'var(--card-bg)',
+        color: 'var(--fg)',
+        border: '1px solid var(--card-border)',
         padding: '2rem', 
         borderRadius: '0.5rem',
         maxWidth: '500px',
@@ -294,7 +348,7 @@ const AddAnimalForm = ({
             value={formData.name}
             onChange={(e) => setFormData({...formData, name: e.target.value})}
             required 
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           />
         </div>
 
@@ -303,7 +357,7 @@ const AddAnimalForm = ({
           <select 
             value={formData.type}
             onChange={(e) => setFormData({...formData, type: e.target.value as Animal['type']})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           >
             <option value="goat">Goat</option>
             <option value="cow">Cow</option>
@@ -319,7 +373,7 @@ const AddAnimalForm = ({
           <select 
             value={formData.gender}
             onChange={(e) => setFormData({...formData, gender: e.target.value as Animal['gender']})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           >
             <option value="female">Female</option>
             <option value="male">Male</option>
@@ -332,7 +386,7 @@ const AddAnimalForm = ({
             type="text" 
             value={formData.breed}
             onChange={(e) => setFormData({...formData, breed: e.target.value})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           />
         </div>
 
@@ -342,7 +396,7 @@ const AddAnimalForm = ({
             type="date" 
             value={formData.birthDate}
             onChange={(e) => setFormData({...formData, birthDate: e.target.value})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           />
         </div>
 
@@ -351,7 +405,7 @@ const AddAnimalForm = ({
           <select 
             value={formData.parentMaleId}
             onChange={(e) => setFormData({...formData, parentMaleId: e.target.value})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           >
             <option value="">Select Father</option>
             {maleAnimals.map(animal => (
@@ -365,7 +419,7 @@ const AddAnimalForm = ({
           <select 
             value={formData.parentFemaleId}
             onChange={(e) => setFormData({...formData, parentFemaleId: e.target.value})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           >
             <option value="">Select Mother</option>
             {femaleAnimals.map(animal => (
@@ -380,7 +434,7 @@ const AddAnimalForm = ({
             type="text" 
             value={formData.registrationNumber}
             onChange={(e) => setFormData({...formData, registrationNumber: e.target.value})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           />
         </div>
 
@@ -389,7 +443,7 @@ const AddAnimalForm = ({
           <textarea 
             value={formData.notes}
             onChange={(e) => setFormData({...formData, notes: e.target.value})}
-            style={{ width: '100%', padding: '0.25rem', minHeight: '60px' }}
+            style={{ width: '100%', padding: '0.25rem', minHeight: '60px', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           />
         </div>
 
@@ -425,7 +479,7 @@ const AddBreedingForm = ({
   const maleAnimals = animals.filter(a => a.gender === 'male');
   const femaleAnimals = animals.filter(a => a.gender === 'female');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const dataToSubmit = { ...formData };
     
@@ -460,7 +514,9 @@ const AddBreedingForm = ({
       zIndex: 1000
     }}>
       <form onSubmit={handleSubmit} style={{ 
-        backgroundColor: 'white', 
+        background: 'var(--card-bg)',
+        color: 'var(--fg)',
+        border: '1px solid var(--card-border)',
         padding: '2rem', 
         borderRadius: '0.5rem',
         maxWidth: '500px',
@@ -474,7 +530,7 @@ const AddBreedingForm = ({
             value={formData.maleAnimalId}
             onChange={(e) => setFormData({...formData, maleAnimalId: e.target.value})}
             required 
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           >
             <option value="">Select Male</option>
             {maleAnimals.map(animal => (
@@ -489,7 +545,7 @@ const AddBreedingForm = ({
             value={formData.femaleAnimalId}
             onChange={(e) => setFormData({...formData, femaleAnimalId: e.target.value})}
             required 
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           >
             <option value="">Select Female</option>
             {femaleAnimals.map(animal => (
@@ -505,7 +561,7 @@ const AddBreedingForm = ({
             value={formData.breedingDate}
             onChange={(e) => setFormData({...formData, breedingDate: e.target.value})}
             required 
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           />
         </div>
 
@@ -515,7 +571,7 @@ const AddBreedingForm = ({
             type="date" 
             value={formData.expectedDueDate}
             onChange={(e) => setFormData({...formData, expectedDueDate: e.target.value})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           />
         </div>
 
@@ -524,7 +580,7 @@ const AddBreedingForm = ({
           <select 
             value={formData.status}
             onChange={(e) => setFormData({...formData, status: e.target.value as BreedingRecord['status']})}
-            style={{ width: '100%', padding: '0.25rem' }}
+            style={{ width: '100%', padding: '0.25rem', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           >
             <option value="planned">Planned</option>
             <option value="confirmed">Confirmed</option>
@@ -538,7 +594,7 @@ const AddBreedingForm = ({
           <textarea 
             value={formData.notes}
             onChange={(e) => setFormData({...formData, notes: e.target.value})}
-            style={{ width: '100%', padding: '0.25rem', minHeight: '60px' }}
+            style={{ width: '100%', padding: '0.25rem', minHeight: '60px', background: 'transparent', color: 'var(--fg)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
           />
         </div>
 

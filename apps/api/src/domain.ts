@@ -55,6 +55,7 @@ export interface Animal {
   parentFemaleId?: ID; // Reference to mother
   registrationNumber?: string;
   notes?: string;
+  status?: "open" | "bred" | "pregnant" | "fresh" | "dry"; // livestock lifecycle shorthand (esp. goats/cows)
   createdAt: string; // ISO date
 }
 

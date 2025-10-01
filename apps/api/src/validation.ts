@@ -37,6 +37,7 @@ export const createAnimalSchema = z.object({
   parentFemaleId: z.string().optional(),
   registrationNumber: z.string().optional(),
   notes: z.string().optional(),
+  status: z.enum(["open", "bred", "pregnant", "fresh", "dry"]).optional(),
 });
 
 export const updateAnimalSchema = createAnimalSchema.partial();

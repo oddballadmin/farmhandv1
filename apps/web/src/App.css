@@ -76,6 +76,12 @@
 
 	/* Dividers */
 	--divider-color: var(--border-color);
+
+	/* Components */
+	--card-bg: var(--module-panel-bg);
+	--card-border: var(--border-color);
+	--accent-male: #38bdf8;   /* sky-400 */
+	--accent-female: #f472b6; /* pink-400 */
 }
 
 /* Typography: headings letter-spacing (body spacing unchanged) */
@@ -131,6 +137,10 @@ h3 {
 		--nav-link-active-bg: var(--color-secondary-text);
 		--nav-link-active-color: #ffffff;
 		--menu-btn-border: var(--border-color);
+
+		/* Component accents in dark */
+		--accent-male: #7dd3fc;   /* sky-300 */
+		--accent-female: #f9a8d4; /* pink-300 */
 	}
 }
 
@@ -168,4 +178,8 @@ h3 {
 	--nav-link-active-bg: var(--color-secondary-text);
 	--nav-link-active-color: #ffffff;
 	--menu-btn-border: var(--border-color);
+
+	/* Component accents in dark */
+	--accent-male: #7dd3fc;
+	--accent-female: #f9a8d4;
 }

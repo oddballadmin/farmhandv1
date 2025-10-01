@@ -57,6 +57,7 @@ const animalA: Animal = {
   gender: 'female', 
   birthDate: '2022-03-15T00:00:00.000Z',
   registrationNumber: 'NG-001',
+  status: 'open',
   createdAt: nowIso() 
 };
 const animalB: Animal = { 
@@ -68,6 +69,7 @@ const animalB: Animal = {
   gender: 'male', 
   birthDate: '2021-05-20T00:00:00.000Z',
   registrationNumber: 'NG-002',
+  status: 'open',
   createdAt: nowIso() 
 };
 const breedingA: BreedingRecord = {
