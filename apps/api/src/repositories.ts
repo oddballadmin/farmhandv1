@@ -2,7 +2,7 @@
 // Each repository implements basic CRUD using a Map. IDs are generated with crypto.
 
 import { randomUUID } from 'node:crypto';
-import { Farm, Field, Crop, Task, SensorReading, ID, nowIso } from './domain.js';
+import { Farm, Field, Crop, Task, SensorReading, Animal, BreedingRecord, ID, nowIso } from './domain.js';
 
 export interface Repository<T extends { id: ID }> {
   list(): Promise<T[]>;
@@ -47,10 +47,49 @@ const cropA: Crop = { id: 'crop-1', fieldId: fieldA.id, name: 'Wheat', season: '
 const taskA: Task = { id: 'task-1', farmId: farmA.id, title: 'Irrigation', status: 'todo' };
 const readingA: SensorReading = { id: 'reading-1', fieldId: fieldA.id, type: 'soil_moisture', value: 22.4, unit: '%', recordedAt: nowIso() };
 
+// Seed demo livestock data
+const animalA: Animal = { 
+  id: 'animal-1', 
+  farmId: farmA.id, 
+  name: 'Daisy', 
+  type: 'goat', 
+  breed: 'Nubian', 
+  gender: 'female', 
+  birthDate: '2022-03-15T00:00:00.000Z',
+  registrationNumber: 'NG-001',
+  status: 'open',
+  createdAt: nowIso() 
+};
+const animalB: Animal = { 
+  id: 'animal-2', 
+  farmId: farmA.id, 
+  name: 'Buck', 
+  type: 'goat', 
+  breed: 'Nubian', 
+  gender: 'male', 
+  birthDate: '2021-05-20T00:00:00.000Z',
+  registrationNumber: 'NG-002',
+  status: 'open',
+  createdAt: nowIso() 
+};
+const breedingA: BreedingRecord = {
+  id: 'breeding-1',
+  farmId: farmA.id,
+  maleAnimalId: animalB.id,
+  femaleAnimalId: animalA.id,
+  breedingDate: '2024-08-15T00:00:00.000Z',
+  expectedDueDate: '2025-01-12T00:00:00.000Z',
+  status: 'confirmed',
+  notes: 'First breeding for Daisy',
+  createdAt: nowIso()
+};
+
 export const repos = {
   farms: createMemoryRepo<Farm>([farmA]),
   fields: createMemoryRepo<Field>([fieldA]),
   crops: createMemoryRepo<Crop>([cropA]),
   tasks: createMemoryRepo<Task>([taskA]),
   readings: createMemoryRepo<SensorReading>([readingA]),
+  animals: createMemoryRepo<Animal>([animalA, animalB]),
+  breedings: createMemoryRepo<BreedingRecord>([breedingA]),
 };

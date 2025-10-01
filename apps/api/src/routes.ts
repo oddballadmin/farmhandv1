@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import { repos } from './repositories.js';
 import { nowIso } from './domain.js';
 import { z } from 'zod';
-import { createFarmSchema, updateFarmSchema, createFieldSchema, updateFieldSchema, createTaskSchema, updateTaskSchema } from './validation.js';
+import { createFarmSchema, updateFarmSchema, createFieldSchema, updateFieldSchema, createTaskSchema, updateTaskSchema, createAnimalSchema, updateAnimalSchema, createBreedingRecordSchema, updateBreedingRecordSchema } from './validation.js';
 
 // Small helper to validate requests with zod
 function validate<TSchema extends z.ZodTypeAny>(schema: TSchema, data: unknown): z.infer<TSchema> {
@@ -84,6 +84,62 @@ export function createApiRouter() {
       if (!updated) return res.status(404).json({ error: 'Not found' });
       res.json(updated);
     } catch (err) { next(err); }
+  });
+
+  // Animals
+  router.get('/animals', async (_req: Request, res: Response) => {
+    res.json(await repos.animals.list());
+  });
+
+  router.post('/animals', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const input = validate(createAnimalSchema, req.body);
+      const created = await repos.animals.create({ ...input, createdAt: nowIso() });
+      res.status(201).json(created);
+    } catch (err) { next(err); }
+  });
+
+  router.patch('/animals/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const patch = validate(updateAnimalSchema, req.body);
+      const updated = await repos.animals.update(req.params.id, patch);
+      if (!updated) return res.status(404).json({ error: 'Not found' });
+      res.json(updated);
+    } catch (err) { next(err); }
+  });
+
+  router.delete('/animals/:id', async (req: Request, res: Response) => {
+    const deleted = await repos.animals.delete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: 'Not found' });
+    res.status(204).send();
+  });
+
+  // Breeding Records
+  router.get('/breeding-records', async (_req: Request, res: Response) => {
+    res.json(await repos.breedings.list());
+  });
+
+  router.post('/breeding-records', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const input = validate(createBreedingRecordSchema, req.body);
+      const created = await repos.breedings.create({ ...input, createdAt: nowIso() });
+      res.status(201).json(created);
+    } catch (err) { next(err); }
+  });
+
+  router.patch('/breeding-records/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const patch = validate(updateBreedingRecordSchema, req.body);
+      const updated = await repos.breedings.update(req.params.id, patch);
+      if (!updated) return res.status(404).json({ error: 'Not found' });
+      res.json(updated);
+    } catch (err) { next(err); }
+  });
+
+  router.delete('/breeding-records/:id', async (req: Request, res: Response) => {
+    const deleted = await repos.breedings.delete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: 'Not found' });
+    res.status(204).send();
   });
 
   return router;

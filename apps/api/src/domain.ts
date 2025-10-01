@@ -43,6 +43,36 @@ export interface SensorReading {
   recordedAt: string; // ISO date
 }
 
+export interface Animal {
+  id: ID;
+  farmId: ID;
+  name: string;
+  type: "goat" | "cow" | "sheep" | "pig" | "horse" | "chicken";
+  breed?: string;
+  gender: "male" | "female";
+  birthDate?: string; // ISO date
+  parentMaleId?: ID; // Reference to father
+  parentFemaleId?: ID; // Reference to mother
+  registrationNumber?: string;
+  notes?: string;
+  status?: "open" | "bred" | "pregnant" | "fresh" | "dry"; // livestock lifecycle shorthand (esp. goats/cows)
+  createdAt: string; // ISO date
+}
+
+export interface BreedingRecord {
+  id: ID;
+  farmId: ID;
+  maleAnimalId: ID;
+  femaleAnimalId: ID;
+  breedingDate: string; // ISO date
+  expectedDueDate?: string; // ISO date
+  actualBirthDate?: string; // ISO date
+  offspring?: ID[]; // Array of animal IDs born from this breeding
+  status: "planned" | "confirmed" | "successful" | "unsuccessful";
+  notes?: string;
+  createdAt: string; // ISO date
+}
+
 // Simple helpers
 export function nowIso(): string {
   return new Date().toISOString();

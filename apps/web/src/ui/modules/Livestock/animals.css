@@ -1,0 +1,174 @@
+/* Animals module styles */
+.animals-categories-grid {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+.animals-category-card {
+	border: 1px solid var(--card-border);
+	background: var(--card-bg);
+	color: var(--fg);
+	padding: 1rem;
+	border-radius: 0.5rem;
+	text-align: left;
+	cursor: pointer;
+}
+.animals-category-card strong {
+	font-size: 0.95rem;
+}
+.animals-header-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+.animals-header-left {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+}
+.animals-header-actions {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+.animals-btn {
+	background: var(--button-bg, var(--panel-bg));
+	color: var(--fg);
+	border: 1px solid var(--border-color);
+	padding: 0.4rem 0.75rem;
+	border-radius: 0.4rem;
+	font-size: 0.85rem;
+	display: flex;
+	gap: 0.35rem;
+	align-items: center;
+	cursor: pointer;
+}
+.animals-btn.active {
+	background: var(--nav-link-active-bg);
+}
+.animals-mass-edit-bar {
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+	background: var(--panel-bg);
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--border-color);
+	border-radius: 0.5rem;
+}
+.animals-delete-btn {
+	background: var(--danger-bg, #5b2020);
+	color: var(--danger-fg, #fff);
+	padding: 0.35rem 0.75rem;
+	border-radius: 0.4rem;
+	border: 1px solid var(--border-color);
+}
+.animals-delete-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+.animals-grid {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.animal-card {
+	border: 1px solid var(--card-border);
+	background: var(--card-bg);
+	border-radius: 0.5rem;
+	padding: 0.75rem 0.9rem;
+	position: relative;
+}
+.animal-card.selected {
+	outline: 2px solid var(--nav-link-active-bg);
+}
+.animal-card h4 {
+	margin: 0 0 0.25rem 0;
+	padding-bottom: 0.3rem;
+	border-bottom: 1px solid var(--divider-color);
+	font-size: 0.95rem;
+}
+.animal-card-id {
+	font-size: 0.7rem;
+	opacity: 0.8;
+	margin-bottom: 0.3rem;
+}
+.animal-card-meta {
+	font-size: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+}
+.animal-status {
+	display: inline-block;
+	font-size: 0.55rem;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	padding: 0.2rem 0.4rem;
+	border: 1px solid var(--border-color);
+	border-radius: 999px;
+	background: var(--panel-bg);
+	opacity: 0.9;
+}
+.animal-status.bred {
+	background: linear-gradient(var(--accent-gradient));
+	color: var(--fg-accent-strong, #fff);
+	border-color: var(--accent-border, transparent);
+}
+.animal-status.open {
+	background: var(--panel-bg);
+}
+.animal-status.pregnant {
+	background: var(--accent-bg);
+	color: var(--accent-fg);
+}
+.animal-status.fresh {
+	background: var(--success-bg, #1b4d30);
+	color: var(--success-fg, #d2ffe3);
+}
+.animal-status.dry {
+	background: var(--neutral-bg, var(--panel-bg));
+}
+.add-animal-modal {
+	background: var(--card-bg);
+	color: var(--fg);
+	border: 1px solid var(--card-border);
+	padding: 2rem;
+	border-radius: 0.75rem;
+	width: min(90%, 480px);
+	max-height: 80vh;
+	overflow-y: auto;
+}
+.add-animal-form {
+	display: grid;
+	gap: 0.75rem;
+}
+.add-animal-form label {
+	display: grid;
+	gap: 0.25rem;
+}
+.add-animal-form input,
+.add-animal-form select {
+	padding: 0.4rem;
+	background: transparent;
+	color: var(--fg);
+	border: 1px solid var(--border-color);
+	border-radius: 6px;
+}
+.add-animal-actions {
+	display: flex;
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+	justify-content: flex-end;
+}
+.overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 2000;
+}
